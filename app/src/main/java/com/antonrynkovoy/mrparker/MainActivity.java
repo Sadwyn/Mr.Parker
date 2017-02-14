@@ -1,7 +1,9 @@
 package com.antonrynkovoy.mrparker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -64,5 +66,6 @@ public class MainActivity extends AppCompatActivity {
         saveCity.putBoolean(SAVED_CITY_STATE, true);
         saveCity.apply();
     }
+
 }
 
