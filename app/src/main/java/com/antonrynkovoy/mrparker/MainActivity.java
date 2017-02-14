@@ -1,17 +1,15 @@
 package com.antonrynkovoy.mrparker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.multidex.MultiDex;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SharedPreferences sPref;
+    static SharedPreferences sPref;
     private boolean isCityChosen = false;
     private final String SAVED_CITY_NAME = "saved_city";
     private final String SAVED_CITY_STATE = "saved_city_state";
@@ -21,13 +19,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
+        spinnerCities = (Spinner) findViewById(R.id.spinnerCities);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         sPref = getPreferences(MODE_PRIVATE);
         isCityChosen = sPref.getBoolean(SAVED_CITY_STATE,false);
         if(isCityChosen) {
             selectedCity(sPref.getString(SAVED_CITY_NAME, "Kiev"));
         }
-        setContentView(R.layout.activity_main);
-        spinnerCities = (Spinner) findViewById(R.id.spinnerCities);
+
     }
 
     public void onSetCity(View view) {
