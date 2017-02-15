@@ -18,8 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.antonrynkovoy.mrparker.markers.MarkersList;
+import com.antonrynkovoy.mrparker.markers.ParkingQualifier;
 import com.antonrynkovoy.mrparker.navbar_tabs_activities.Settings;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -144,19 +145,21 @@ public class GoogleMapActivity extends AppCompatActivity
         LatLng center = new LatLng(lat, lon);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 10));
 
-        final MarkerOptions luxoft = new MarkerOptions().position(new LatLng(46.468736, 30.712678)).title("Luxoft");
-        MarkerOptions riviera = new MarkerOptions().position(new LatLng(46.562465, 30.834758)).title("Riviera");
 
-        googleMap.addMarker(luxoft);
-        googleMap.addMarker(riviera);
+        final ParkingQualifier qualifier = new ParkingQualifier();
+
+        for (MarkerOptions marker : qualifier.getMarkers()) {
+            googleMap.addMarker(marker);
+        }
 
 
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if(marker.getTitle().equals(luxoft.getTitle())){
-                    Toast.makeText(GoogleMapActivity.this, marker.getTitle(), Toast.LENGTH_SHORT).show();
-                }
+               String message = qualifier.defineRightParking(marker.getTitle());
+                Intent intent = new Intent(GoogleMapActivity.this, ParkingActivity.class);
+                intent.putExtra("name", message);
+                startActivity(intent);
             }
         });
     }

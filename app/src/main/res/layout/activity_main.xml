@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
-    tools:context="com.anton_rynkovoy.mrparker.MainActivity">
+    tools:context="com.antonrynkovoy.mrparker.MainActivity">
 
     <Spinner
         android:layout_width="250dp"

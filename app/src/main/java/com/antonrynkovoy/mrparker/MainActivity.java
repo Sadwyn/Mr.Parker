@@ -19,9 +19,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        spinnerCities = (Spinner) findViewById(R.id.spinnerCities);
+
     }
 
     @Override
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         if(isCityChosen) {
             selectedCity(sPref.getString(SAVED_CITY_NAME, "Kiev"));
         }
-
+        spinnerCities = (Spinner) findViewById(R.id.spinnerCities);
     }
 
     public void onSetCity(View view) {
