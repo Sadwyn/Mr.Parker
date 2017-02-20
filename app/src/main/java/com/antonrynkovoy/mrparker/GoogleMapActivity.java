@@ -19,8 +19,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.antonrynkovoy.mrparker.markers.MarkersList;
-import com.antonrynkovoy.mrparker.markers.ParkingQualifier;
 import com.antonrynkovoy.mrparker.navbar_tabs_activities.Settings;
+import com.antonrynkovoy.mrparker.parking_models.FactoryModel;
+import com.antonrynkovoy.mrparker.parking_models.Parking;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -146,9 +147,11 @@ public class GoogleMapActivity extends AppCompatActivity
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 10));
 
 
-        final ParkingQualifier qualifier = new ParkingQualifier();
+        MarkersList markersList = new MarkersList();
+        final FactoryModel factory = FactoryModel.getInstance();
 
-        for (MarkerOptions marker : qualifier.getMarkers()) {
+
+        for (MarkerOptions marker : markersList) {
             googleMap.addMarker(marker);
         }
 
@@ -156,9 +159,9 @@ public class GoogleMapActivity extends AppCompatActivity
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-               String message = qualifier.defineRightParking(marker.getTitle());
+                String parkingName = marker.getTitle();
                 Intent intent = new Intent(GoogleMapActivity.this, ParkingActivity.class);
-                intent.putExtra("name", message);
+                intent.putExtra("name", parkingName);
                 startActivity(intent);
             }
         });
